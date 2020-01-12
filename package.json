@@ -1,0 +1,48 @@
+{
+  "name": "icp",
+  "version": "1.0.0",
+  "description": "Icp implementation in javascript",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest",
+    "build": "tsc",
+    "dev": "tsc --watch",
+    "prettier": "npx prettier --write src/* test/* example/*",
+    "tslint": "tslint -p tslint -p tsconfig.json",
+    "codestyle": "npm run prettier && npm run tslint"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/maximmasterr/ICP-js.git"
+  },
+  "keywords": [
+    "ICP"
+  ],
+  "author": "maximmasterr",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/maximmasterr/ICP-js/issues"
+  },
+  "homepage": "https://github.com/maximmasterr/ICP-js#readme",
+  "devDependencies": {
+    "@types/jest": "^24.0.25",
+    "@types/node": "^13.1.6",
+    "@types/ws": "^6.0.4",
+    "husky": "^4.0.7",
+    "jest": "^24.9.0",
+    "prettier": "^1.19.1",
+    "ts-jest": "^24.3.0",
+    "tslint": "^5.20.1",
+    "tslint-config-prettier": "^1.18.0",
+    "typescript": "^3.7.4"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "npm run codestyle"
+    }
+  },
+  "dependencies": {
+    "isomorphic-ws": "^4.0.1",
+    "ws": "^7.2.1"
+  }
+}
