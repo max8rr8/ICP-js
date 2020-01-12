@@ -10,3 +10,7 @@ Here is implementation of next features:
 - WS server and client (browser and node.js (using ws-lib))
 
 ## Examples
+- [TCP Client](https://github.com/maximmasterr/ICP-js/blob/master/examples/tcpClient.js)
+- [TCP Server](https://github.com/maximmasterr/ICP-js/blob/master/examples/tcpServer.js)
+- [WS Client](https://github.com/maximmasterr/ICP-js/blob/master/examples/wsClient.js)
+- [WS Server](https://github.com/maximmasterr/ICP-js/blob/master/examples/wsServer.js)
