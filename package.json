@@ -1,15 +1,16 @@
 {
-  "name": "icp",
-  "version": "1.0.0",
+  "name": "icp-js",
+  "version": "1.0.1",
   "description": "Icp implementation in javascript",
-  "main": "index.js",
+  "main": "./index.js",
   "scripts": {
     "test": "jest",
     "build": "tsc",
     "dev": "tsc --watch",
     "prettier": "npx prettier --write src/* test/* example/*",
     "tslint": "tslint -p tslint -p tsconfig.json",
-    "codestyle": "npm run prettier && npm run tslint"
+    "codestyle": "npm run prettier && npm run tslint",
+    "packAndPublish": "cp package.json ./lib/package.json && cp Readme.md ./lib/Readme.md && npm publish ./lib "
   },
   "repository": {
     "type": "git",
