@@ -20,7 +20,7 @@ export class ICPServer {
   protected endpoints: Endpoint[] = [];
   protected documentation: Documentated[] = [];
 
-  public subcribe(endpoint: EndpointPath, callback: EndpointCallback) {
+  public subscribe(endpoint: EndpointPath, callback: EndpointCallback) {
     this.endpoints.push({
       endpoint: wildcardToRegex(endpoint),
       callback
@@ -36,19 +36,19 @@ export class ICPServer {
   }
 
   protected handle(msg: RequestMessage, write: WriteFunction) {
-    let sendedReply = false;
+    let find = false;
 
-    for (let i = 0; i < this.endpoints.length && !sendedReply; i++) {
+    for (let i = 0; i < this.endpoints.length && !find; i++) {
       if (this.endpoints[i].endpoint.test(msg.endpoint)) {
         this.endpoints[i].callback(msg, reply => {
           reply.id = msg.id;
           write(reply);
-          sendedReply = true;
         });
+        find = true;
       }
     }
 
-    if (!sendedReply) {
+    if (!find) {
       const reply: ReplyMessage = {
         type: 'error',
         msg: `Endpoint '${msg.endpoint}' not found`,

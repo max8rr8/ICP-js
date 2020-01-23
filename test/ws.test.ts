@@ -8,7 +8,7 @@ let connection: WebSocketsICPConnection;
 
 test('Should create server', () => {
   let wserver = new WebSocketsICPServer(server);
-  wserver.subcribe('/test', (msg, reply) =>
+  wserver.subscribe('/test', (msg, reply) =>
     reply({
       type: 'ok',
       test: 'ok'

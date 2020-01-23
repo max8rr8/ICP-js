@@ -5,7 +5,7 @@ let connection: TcpICPConnection;
 
 test('Should create server', () => {
   server = new TcpICPServer(3232);
-  server.subcribe('/test', (msg, reply) =>
+  server.subscribe('/test', (msg, reply) =>
     reply({
       type: 'ok',
       test: 'ok'

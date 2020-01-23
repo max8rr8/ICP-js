@@ -35,20 +35,20 @@ test('Should reply with not found if no endpoint', async () => {
 });
 
 test('Should register endpoint', async () => {
-  server.subcribe('/test/normal', (req, reply) =>
+  server.subscribe('/test/normal', (req, reply) =>
     reply({
       type: 'ok'
     })
   );
 
-  server.subcribe('/test/echo', (req, reply) =>
+  server.subscribe('/test/echo', (req, reply) =>
     reply({
       type: 'ok',
       echo: req.echo
     })
   );
 
-  server.subcribe('/test/any/*', (req, reply) =>
+  server.subscribe('/test/any/*', (req, reply) =>
     reply({
       type: 'ok',
       wildcard: 1,
@@ -56,7 +56,7 @@ test('Should register endpoint', async () => {
     })
   );
 
-  server.subcribe('/test/:smth/replyOK', (req, reply) =>
+  server.subscribe('/test/:smth/replyOK', (req, reply) =>
     reply({
       type: 'ok',
       wildcard: 2,
