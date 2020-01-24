@@ -8,9 +8,13 @@ Here is implementation of next features:
 - Base of ICP (server and client) (any js engine)
 - TCP server and client (node.js)
 - WS server and client (browser and node.js (using ws-lib))
+- Variable extension
+- Method extension
 
 ## Examples
 - [TCP Client](https://github.com/maximmasterr/ICP-js/blob/master/examples/tcpClient.js)
 - [TCP Server](https://github.com/maximmasterr/ICP-js/blob/master/examples/tcpServer.js)
 - [WS Client](https://github.com/maximmasterr/ICP-js/blob/master/examples/wsClient.js)
 - [WS Server](https://github.com/maximmasterr/ICP-js/blob/master/examples/wsServer.js)
+- [Variable](https://github.com/maximmasterr/ICP-js/blob/master/examples/variable.js)
+- [Method](https://github.com/maximmasterr/ICP-js/blob/master/examples/method.js)
