@@ -9,8 +9,8 @@ let remote: RemoteMethod;
 
 test('Should create local variable', () => {
   server = new TcpICPServer(3234);
-  local = new LocalMethod(server, '/test', (num: number, done: (repl: number)=>void)=>{
-    done(num ** 2)
+  local = new LocalMethod(server, '/test', (num: number, done: (repl: number) => void) => {
+    done(num ** 2);
   });
 });
 

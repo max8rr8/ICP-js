@@ -6,7 +6,7 @@ type ContinueCallback = (msg: RequestMessage) => void;
 type BeforeCallback = (msg: RequestMessage, write: WriteFunction, next: ContinueCallback) => void;
 type AfterCallback = (msg: ReplyMessage, write: WriteFunction) => void;
 
-type Method = (params: any, callback: (reply: any)=>void)=>Promise<any>|void
+type Method = (params: any, callback: (reply: any) => void) => Promise<any> | void;
 
 export class LocalMethod {
   protected server: ICPServer;
@@ -14,23 +14,24 @@ export class LocalMethod {
   protected method: Method;
   protected beforeCallback: BeforeCallback;
   protected afterCallback: AfterCallback;
-  
+
   constructor(server: ICPServer, endpoint: EndpointPath, func: Method) {
     this.server = server;
     this.endpoint = endpoint;
-    this.method = func
+    this.method = func;
     this.beforeCallback = (msg, write, next) => next(msg);
     this.afterCallback = (msg, write) => write(msg);
-    
+
     server.subscribe(endpoint, (dMsg, dWrite) => {
       const write = (msg: ReplyMessage) => this.afterCallback(msg, dWrite);
       this.beforeCallback(dMsg, write, msg => {
         if (msg.type === 'call') {
-          this.call(msg.params, e=>write({
-            type: 'ok',
-            returns: e
-          }))
-
+          this.call(msg.params, e =>
+            write({
+              type: 'ok',
+              returns: e
+            })
+          );
         } else {
           write({
             type: 'error',
@@ -43,15 +44,15 @@ export class LocalMethod {
   }
 
   public call(params: any): Promise<any>;
-  public call(params: any, callback: (val: any)=>void): void;
-  public call(params: any, callback?: (val: any)=>void): void | Promise<any> {
-    let promise = new Promise(resolve=>{
-      const rep = this.method(params, resolve)
-      if(rep instanceof Promise) rep.then(resolve)
-    })
+  public call(params: any, callback: (val: any) => void): void;
+  public call(params: any, callback?: (val: any) => void): void | Promise<any> {
+    const promise = new Promise(resolve => {
+      const rep = this.method(params, resolve);
+      if (rep instanceof Promise) rep.then(resolve);
+    });
 
-    if(callback) promise.then(callback)
-    else return promise
+    if (callback) promise.then(callback);
+    else return promise;
   }
 }
 
@@ -60,7 +61,7 @@ export class RemoteMethod {
   protected endpoint: EndpointPath;
   protected beforeCallback: BeforeCallback;
   protected afterCallback: AfterCallback;
-  
+
   constructor(connection: ICPConnection, endpoint: EndpointPath) {
     this.connection = connection;
     this.endpoint = endpoint;
@@ -69,15 +70,17 @@ export class RemoteMethod {
   }
 
   public call(params: any): Promise<any>;
-  public call(params: any, callback: (val: any)=>void): void;
-  public call(params: any, callback?: (val: any)=>void): void | Promise<any> {
-    let promise = this.connection.send({
-      endpoint: this.endpoint,
-      type: 'call',
-      params
-    }).then(e=>e.returns)
+  public call(params: any, callback: (val: any) => void): void;
+  public call(params: any, callback?: (val: any) => void): void | Promise<any> {
+    const promise = this.connection
+      .send({
+        endpoint: this.endpoint,
+        type: 'call',
+        params
+      })
+      .then(e => e.returns);
 
-    if(!callback) promise.then(callback)
-    else return promise
+    if (!callback) promise.then(callback);
+    else return promise;
   }
 }
