@@ -15,7 +15,11 @@ export class TcpICPServer extends ICPServer {
           const data = rawData.toString();
           for (const char of data) {
             if (char === '\n') {
-              this.handle(JSON.parse(buf), msg => socket.write(JSON.stringify(msg) + '\n'));
+              this.handle(JSON.parse(buf), msg => {
+                try {
+                  if (socket.writable && !socket.destroyed) socket.write(JSON.stringify(msg) + '\n');
+                } catch (e) {}
+              });
               buf = '';
             } else {
               buf += char;
